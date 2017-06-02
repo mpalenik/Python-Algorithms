@@ -12,7 +12,7 @@ class Node:
         self.weights = [] #weights connecting to next layer
         self.invalue = 0  #input from previous layer
         self.outvalue = 0 #output to next layer
-        self.oldderivs = [] #for momentum
+        self.olddws = [] #for momentum
 
 class Layer:
     def __init__(self):
@@ -50,7 +50,7 @@ class Network:
             if (self.Nlayers>0):
                 for node in self.Layers[self.Nlayers-1].Nodes:
                     for j in range(nNodes[i]): node.weights.append(2.0*(random.random()-1.0))
-                    node.oldderivs = [0]*nNodes[i]
+                    node.olddws = [0]*nNodes[i]
             
             self.Nlayers = self.Nlayers+1
             
@@ -105,8 +105,9 @@ class Network:
                     derivCurr[j] = derivCurr[j]+derivo[k]*dodx*node2.weights[k]
                     
                     dEdwj = derivo[k]*dodx*node2.outvalue #derivative of error with respect to weight
-                    node2.weights[k] = node2.weights[k] + (1.0-self.alpha)*self.eta*dEdwj + self.alpha*node2.oldderivs[k] #adjust weight
-                    node2.oldderivs[k] = dEdwj #set momentum derivative
+                    dw = (1.0-self.alpha)*self.eta*dEdwj + self.alpha*node2.olddws[k]
+                    node2.weights[k] = node2.weights[k] + dw #adjust weight
+                    node2.olddws[k] = dw #set momentum derivative
                     
             derivo = derivCurr
                     
