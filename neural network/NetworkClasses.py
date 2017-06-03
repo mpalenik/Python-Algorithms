@@ -49,7 +49,7 @@ class Network:
             
             if (self.Nlayers>0):
                 for node in self.Layers[self.Nlayers-1].Nodes:
-                    for j in range(nNodes[i]): node.weights.append(2.0*(random.random()-1.0))
+                    for j in range(nNodes[i]): node.weights.append(2.0*(random.random()-0.5))
                     node.olddws = [0]*nNodes[i]
             
             self.Nlayers = self.Nlayers+1
