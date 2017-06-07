@@ -1,4 +1,4 @@
-import NewtonNetworkClasses as nc
+import MetricNetworkClasses as nc
 import pylab as pl #needed to plot the output
 
 #simple demonstration of neural network
